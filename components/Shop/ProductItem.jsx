@@ -1,29 +1,46 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+} from "react-native";
 import Colors from "../../constants/Colors";
 
 const ProductItem = (props) => {
+  let TouchableCmp = TouchableOpacity;
+  if (Platform.OS === "android" && Platform.Version >= 21) {
+    TouchableCmp = TouchableNativeFeedback;
+  }
   return (
     <View style={styles.product}>
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: props.imageUrl }} style={styles.image} />
-      </View>
-      <View style={styles.details}>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.price}>${props.price.toFixed(2)}</Text>
-      </View>
-      <View style={styles.actions}>
-        <Button
-          title="View Details"
-          onPress={props.onViewDetails}
-          color={Colors.primary}
-        />
-        <Button
-          title="Add to cart"
-          onPress={props.onAddToCart}
-          color={Colors.primary}
-        />
-      </View>
+      <TouchableCmp onPress={props.onViewDetails} useForeground>
+        <View style={styles.touchable}>
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: props.imageUrl }} style={styles.image} />
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.price}>${props.price.toFixed(2)}</Text>
+          </View>
+          <View style={styles.actions}>
+            <Button
+              title="View Details"
+              onPress={props.onViewDetails}
+              color={Colors.primary}
+            />
+            <Button
+              title="Add to cart"
+              onPress={props.onAddToCart}
+              color={Colors.primary}
+            />
+          </View>
+        </View>
+      </TouchableCmp>
     </View>
   );
 };
@@ -68,5 +85,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "15%",
     padding: 5,
+  },
+  touchable: {
+    overflow: "hidden",
+    borderRadius: 5,
   },
 });

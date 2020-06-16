@@ -7,11 +7,13 @@ import {
   Image,
   Button,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Colors from "../../constants/Colors";
+import * as CartActions from "../../store/actions/cart";
 
 const ProductDetailScreen = (props) => {
   const productId = props.route.params.productId;
+  const dispatch = useDispatch();
   const selectedProduct = useSelector((state) =>
     state.products.availableProducts.find((product) => product.id === productId)
   );
@@ -22,7 +24,11 @@ const ProductDetailScreen = (props) => {
       <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
       <Text style={styles.description}>{selectedProduct.description}</Text>
       <View style={styles.actions}>
-        <Button color={Colors.primary} title="Add to Cart" />
+        <Button
+          color={Colors.primary}
+          title="Add to Cart"
+          onPress={() => dispatch(CartActions.addToCart(selectedProduct))}
+        />
       </View>
     </ScrollView>
   );
@@ -40,11 +46,13 @@ const styles = StyleSheet.create({
     color: "#888",
     textAlign: "center",
     marginVertical: 10,
+    fontFamily: "raleway-bold",
   },
   description: {
     fontSize: 14,
     textAlign: "center",
     marginHorizontal: 10,
+    fontFamily: "raleway",
   },
   actions: {
     alignItems: "center",
@@ -54,6 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     marginTop: 10,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: "raleway-bold",
   },
 });

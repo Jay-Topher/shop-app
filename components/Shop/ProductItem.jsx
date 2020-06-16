@@ -69,11 +69,13 @@ const styles = StyleSheet.create({
   image: { height: "100%", width: "100%" },
   title: {
     fontSize: 18,
-    marginVertical: 4,
+    marginVertical: 2,
+    fontFamily: "raleway-bold",
   },
   price: {
     fontSize: 14,
     color: "#888",
+    fontFamily: "raleway",
   },
   actions: {
     flexDirection: "row",

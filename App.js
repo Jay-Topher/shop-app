@@ -9,11 +9,13 @@ import * as Font from "expo-font";
 
 import ShopNavigator from "./navigation/shopNavigation";
 import productsReducer from "./store/reducers/products";
+import orderReducer from "./store/reducers/orders";
 import cartReducer from "./store/reducers/cart";
 
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
+  orders: orderReducer,
 });
 
 const store = createStore(rootReducer);
